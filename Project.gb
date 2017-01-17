@@ -1,0 +1,142 @@
+dim kamAng#=-90
+dim kamx#=-8
+dim kamy#
+dim kamz#=0
+
+dim speed#=1
+dim angle#=1
+
+dim x,z
+
+' Load textures first
+dim teks(2)
+teks(1) = LoadTexture ("tembok.jpg") ' Left texture
+teks(2) = LoadTexture ("dinding.jpg") ' Right texture
+
+glEnable(GL_TEXTURE_2D)
+
+while true
+
+glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT)
+glLoadIdentity()
+
+' Position camera
+    glRotatef (-kamAng#, 0, 1, 0)
+    glTranslatef (-kamx#, -kamy#, -kamz#)
+
+'gluLookAt(kamx#, kamy#, kamz#, panx#, pany#, panz# ,0 ,1 ,0)
+glBindTexture (GL_TEXTURE_2D, teks (1))
+for z = 1 to 10
+        glPushMatrix ()
+        for x = 1 to 10
+            glBegin(GL_QUADS)'pilar depan        
+            glTexCoord2f(1,1): glVertex3f(-1.0, 1.0, 1.0)
+            glTexCoord2f(1,0): glVertex3f(-1.0, -1.0, 1.0)
+            glTexCoord2f(0,1): glVertex3f(1.0, -1.0, 1.0)
+            glTexCoord2f(0,0): glVertex3f(1.0, 1.0, 1.0)
+            glEnd() 
+            
+            glBegin(GL_QUADS)'pilar belakang        
+            glTexCoord2f(1,1): glVertex3f(-1.0, 1.0, -1.0)
+            glTexCoord2f(1,0): glVertex3f(-1.0, -1.0, -1.0)
+            glTexCoord2f(0,1): glVertex3f(1.0, -1.0, -1.0)
+            glTexCoord2f(0,0): glVertex3f(1.0, 1.0, -1.0)
+            glEnd() 
+            
+            glBegin(GL_QUADS)'pilar kanan        
+            glTexCoord2f(1,1): glVertex3f(1.0, 1.0, 1.0)
+            glTexCoord2f(1,0): glVertex3f(1.0, 1.0, -1.0)
+            glTexCoord2f(0,1): glVertex3f(1.0, -1.0, -1.0)
+            glTexCoord2f(0,0): glVertex3f(1.0, -1.0, 1.0)
+            glEnd()
+            
+            glBegin(GL_QUADS)'pilar kiri        
+            glTexCoord2f(1,1): glVertex3f(-1.0, 1.0, 1.0)
+            glTexCoord2f(1,0): glVertex3f(-1.0, 1.0, -1.0)
+            glTexCoord2f(0,1): glVertex3f(-1.0, -1.0, -1.0)
+            glTexCoord2f(0,0): glVertex3f(-1.0, -1.0, 1.0)
+            glEnd()
+            
+            glBegin(GL_QUADS)'pilar bawah        
+            glTexCoord2f(1,1): glVertex3f (-10,-1, 10)
+            glTexCoord2f(1,0): glVertex3f ( 10,-1, 10)
+            glTexCoord2f(0,1): glVertex3f ( 10,-1,-10)
+            glTexCoord2f(0,0): glVertex3f (-10,-1,-10)
+            glTexCoord2f(1,1): glVertex3f (-10,-1, 10)
+            glEnd()
+            
+            glBegin(GL_QUADS)'pilar atas        
+            glTexCoord2f(1,1): glVertex3f (-10,1, 10)
+            glTexCoord2f(1,0): glVertex3f ( 10,1, 10)
+            glTexCoord2f(0,1): glVertex3f ( 10,1,-10)
+            glTexCoord2f(0,0): glVertex3f (-10,1,-10)
+            glTexCoord2f(1,1): glVertex3f (-10,1, 10)
+            glEnd()
+            glTranslatef (10, 0, 0)
+        next
+        glPopMatrix ()
+        glTranslatef (0, 0, -10)
+    next           
+    
+    glBindTexture (GL_TEXTURE_2D, teks (2))
+
+    for z = 1 to 55
+    glBegin(GL_QUADS)'dinding kiri        
+        glTexCoord2f(0,1): glVertex3f(-10.0, 1.0, 2.0)
+        glTexCoord2f(1,1): glVertex3f(-10.0, 1.0, 0.0)
+        glTexCoord2f(1,0): glVertex3f(-10.0, -1.0, 0.0)
+        glTexCoord2f(0,0): glVertex3f(-10.0, -1.0, 2.0)
+    glEnd()
+    glTranslatef (0, 0, 2)
+    next
+    
+    for z = 1 to 55
+    glBegin(GL_QUADS)'dinding kanan        
+        glTexCoord2f(0,1): glVertex3f(100.0, 1.0, -2.0)
+        glTexCoord2f(1,1): glVertex3f(100.0, 1.0, 0.0)
+        glTexCoord2f(1,0): glVertex3f(100.0, -1.0, 0.0)
+        glTexCoord2f(0,0): glVertex3f(100.0, -1.0, -2.0)
+    glEnd()
+    glTranslatef (0, 0, -2)
+    next
+    
+    for x = 1 to 55
+    glBegin(GL_QUADS)'dinding belakang        
+        glTexCoord2f(0,1): glVertex3f(-10.0, 1.0, 0.0)
+        glTexCoord2f(0,0): glVertex3f(-10.0, -1.0, 0.0)
+        glTexCoord2f(1,0): glVertex3f(-8.0, -1.0, 0.0)
+        glTexCoord2f(1,1): glVertex3f(-8.0, 1.0, 0.0)
+    glEnd()                            
+    glTranslatef (2, 0, 0)
+    next
+    
+    for x = 1 to 55
+    glBegin(GL_QUADS)'dinding belakang        
+        glTexCoord2f(1,1): glVertex3f(-12.0, 1.0, 110.0)
+        glTexCoord2f(1,0): glVertex3f(-12.0, -1.0, 110.0)
+        glTexCoord2f(0,0): glVertex3f(-10.0, -1.0, 110.0)
+        glTexCoord2f(0,1): glVertex3f(-10.0, 1.0, 110.0)
+    glEnd()                            
+    glTranslatef (-2, 0, 0)
+    next
+
+SwapBuffers()
+
+if ScanKeyDown (VK_DOWN)    then
+            kamx# = kamx# - sind (kamAng#) * .1
+            kamz# = kamz# - cosd (kamAng#) * .1
+        endif
+        if ScanKeyDown (VK_UP)  then
+            kamx# = kamx# + sind (kamAng#) * .1
+            kamz# = kamz# + cosd (kamAng#) * .1
+        endif
+if scanKeyDown(VK_RIGHT) then kamAng#=kamAng#-angle# :endif
+if scanKeyDown(VK_LEFT) then kamAng#=kamAng#+angle# :endif 
+
+' batas posisi kamera
+if kamx# < -8.7 then kamx# = -8.7 endif
+if kamx# >  98.7 then kamx# = 98.7 endif
+if kamz# > 8.7 then kamz# = 8.7 endif
+if kamz# <-98.7 then kamz# =-98.7 endif
+
+wend
